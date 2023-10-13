@@ -1,27 +1,21 @@
 const dotenv = require("dotenv");
-dotenv.config()
+dotenv.config();
 
 const http = require("http");
-const mongodb = require("mongodb");
-
-let db;
+const mongoose = require("mongoose");
 const connectionString = process.env.MONGO_URL;
-  
-  
-
-mongodb.connect(connectionString, {
+ mongoose.connect(
+  connectionString, {
+    
   useNewUrlParser: true,
   useUnifiedTopology: true,
 },
-(err, client) => {
-  if (err) {
-    console.log("MongoDB ulanishda XATOLIK yuz berdi");
-  } else {
-    console.log("MongoDB ulanish muvaffaqiyatli amalga oshirildi");
-    module.exports = client;
-
-                    // process.env.PORT || 
-    const app = require("./app");
+(err, goose) => {
+  if (err) console.log("MongoDB ulanishda XATOLIK yuz berdi");
+  else {
+    console.log("MongoDB ulanish muvaffaqiyatli amalga oshirildi");   // module.exports = client; mongos sabab kk emas!
+    console.log(goose); //moongose clieantni beradi
+    const app = require("./app"); // process.env.PORT || 
     const server = http.createServer(app);
     let PORT =process.env.PORT || 3003;
     server.listen(PORT, function () {
@@ -30,4 +24,4 @@ mongodb.connect(connectionString, {
       );
     });
   }
-});
+})

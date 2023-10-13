@@ -2,7 +2,6 @@ console.log("Web serverni boshlash");
 const express = require("express");
 const app = express();
 const router = require("./router");
-const db = require("./server").db();
 
 
 
@@ -10,7 +9,7 @@ const db = require("./server").db();
 //kirish qismi code
  app.use(express.static("public"));
  app.use(express.json());
-app.use(express.urlencoded({extended: true }));
+ app.use(express.urlencoded({extended: true }));
 
 //------------------2--------------//
 //session code
