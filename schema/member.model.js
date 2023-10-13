@@ -1,4 +1,6 @@
+
 const mongoose = require("mongoose"); 
+const { member_type_enums, member_status_enums} = require("../lib/config");
 const memberSchema = new mongoose.Schema({
     mb_nick: {
         type: String,
@@ -32,13 +34,13 @@ const memberSchema = new mongoose.Schema({
                 message: "{VALLUE} is not among permited values"
             }
         },
-        mb_full_name: {
-            type: String,
-            required:false,
-        },
+        
         mb_address: {
             type: String,
             required: false
+        },
+        mb_description: {
+            type:String, required: false
         },
         mb_image: {
             type: String,
@@ -48,7 +50,40 @@ const memberSchema = new mongoose.Schema({
             type: Number,
             required: false,
             default: 0
-          }
+          },
+          mb_top: {
+            type: String,
+            required: false,
+            default: `N`,
+            enum: {
+                values: ordernary_enums,
+                message:"{VALLUE} is not among permited values"
+            },
+          },
+          mb_views: {
+            type:Number,
+            required: false,
+            default: 0
+          },
+          mb_likes: {
+            type:Number,
+            required: false,
+            default: 0
+          },
+          mb_follow_cnt: {
+            type:Number,
+            required: false,
+            default: 0
+          },
+          mb_subscriber_cnt: {
+            type:Number,
+            required: false,
+            default: 0
+          },
+            timestamps: true
         });
         
-        module.exports = mongoose.model("Member", memberSchema); //mongoose require qilganiizga ikkita nara talab qilinadi kelajakdagi dbaga tablisani members qib yozsa ochib beradi. aynan qaytgan narssa model 
+        module.exports = mongoose.model("Member", memberSchema);
+        //    {timestamps: true}
+
+        // module.exports = mongoose.model("Member", memberSchema); //mongoose require qilganiizga ikkita nara talab qilinadi kelajakdagi dbaga tablisani members qib yozsa ochib beradi. aynan qaytgan narssa model 
