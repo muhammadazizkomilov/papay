@@ -1,44 +1,57 @@
 const mongoose = require("mongoose");
-const { member_type_enums, member_status_enums } = require("../lib/config");
+const { member_type_enums, member_status_enums, ordernary_enums } = require("../lib/config");
 
 const memberSchema = new mongoose.Schema(
   {
     mb_nick: {
       type: String,
       reqired: true,
-      index: { unique: true, sparse: true },
+      index: { unique: true, sparse: true }, //mbnick boshqa odamlar ishlata olmasin,dbda ishlatilgan bolsa
     },
     mb_phone: {
       type: String,
-      required: true,
+      required: true,//TALAB QILISH BOLISHI SHART
     },
     mb_password: {
       type: String,
       required: true,
-      select: false,
+      select: false,  //pasword maxfiy bolgani un db qaytarmasiligi un 
     },
     mb_type: {
-      type: String,
-      required: false,
-      default: "USER",
-      enum: {
-        vales: member_type_enums,
-        message: "{VALUE} is not among permitted values",
+      mb_type: {
+        type: String,
+        required: false,
+        default: "USER",
+        enum: ['USER', 'ADMIN', 'PEDAL', 'RESTAURANT'] // Qo'shilgan enum ro'yxati
+
+      
+      // type: String,
+      // required: false,
+      // default: "USER", //BAYDEFULL YOZMASA HAM USER BOLADO
+      // enum: {
+      //   vales: member_type_enums, //skimani yasadik
+      //   message: "{VALUE} is not among permitted values",
       },
     },
     mb_status: {
-      type: String,
-      required: false,
-      default: "ACTIVE",
-      enum: {
-        vales: member_status_enums,
-        message: "{VALUE} is not among permitted values",
+      mb_status: {
+        type: String,
+        required: false,
+        default: 'AKTIVE',
+        enum: ['ONEPAUSE', 'AKTIVE', 'DELETED']
+      
+      // type: String,
+      // required: false,
+      // default: "ACTIVE",
+      // enum: {
+      //   vales: member_status_enums,
+      //   message: "{VALUE} is not among permitted values",
       },
     },
 
     mb_address: {
       type: String,
-      required: false,
+      required: false
     },
     mb_description: {
       type: String,
@@ -58,7 +71,7 @@ const memberSchema = new mongoose.Schema(
       required: false,
       default: "N",
       enum: {
-        values: ordenary_enums,
+        values: ordernary_enums,
         message: "{VALUE} is not among permitted values",
       },
     },

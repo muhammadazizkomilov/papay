@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-dotenv.config();
+dotenv.config();// envarmtni yuklashi kk
 
 const http = require("http");
 const mongoose = require("mongoose");
