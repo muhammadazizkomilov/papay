@@ -1,51 +1,52 @@
-// const Meber = require("../models/Member");
+const Member = require("../models/Member");
 
-// let memberController = module.exports; //membercga 1ta object yasadik,hamda objecti tenglashtirdik modulesga
+let memberController = module.exports;
 
-// memberController.signup = async (req, res) => {
-//     try {                                //pq cotroller prosesni nomi
-//         console.log(`POST:cont/signup`); //reqni turini qoyamiz
-//         const data = req.body; //reqni body qismidan malumot olamiz
-//         const member = new member();
-//         const new_member = await member.signupData(data);
-
-//         res.send("done");   //ochilib qolmasligi un 
-//     }   catch (err) {
-//         console.log(`ERROR, cont/signup, ${err.message}`);
-
-//     }
-    
+// memberController.home = (req, res) => {
+//   console.log("GET cont.home");
+//   res.send("home sahifadasiz");
 // };
-const Member = require("../models/Member"); // Member nomli klassni chaqirvolyapmiz
 
-let memberController = module.exports; // memberController nomli obyektni yaratamiz va uni modulga eksportlaymiz
+// memberController.signup = (req, res) => {
+//   console.log("POST cont.signup");
+//   res.send("signup sahifadasiz");
+// };
 
 memberController.signup = async (req, res) => {
-    try {
-        console.log(`POST:cont/signup`);
-        const data = req.body; // `input` o'zgaruvchisini `req.body` dan olish
-        const member = new Member(); // Member klassini ishlatamiz
-        const new_member = await member.signupData(data);
+try{
+console.log("POST:cont/signup");
+const data = req.body, //requestni badiy qismidan malumot olamiz.
 
-        res.send("done");
-    } catch (err) {
-        console.log(`ERROR, cont/signup, ${err.message}`);
+member = new Member(),
+
+ new_member = await member.signupData(data);
+console.log("i am here1991");
+res.json({state: "succeed", data:new_member});
+//res.send("done");
+} catch(err) {
+console.log(`ERROR, cont/signup, ${err.message}`);
+res.json({state: 'fail',message: err.message});
+}
+};
+
+
+memberController.login = async(req, res) => {
+  try{
+    console.log("POST:cont/login");
+    const data = req.body, //requestni badiy qismidan malumot olamiz.
+    //console.log(body:::,req.body);
+    member = new Member(),
+    result= await member.loginData(data);
+    console.log(1991);
+    res.json({state: 'succeed', data:result});
+    //res.send("done");
+    } catch(err) {
+    console.log(`ERROR, cont/login, ${err.message}`);
+    res.json({state: 'fail',message: err.message});
     }
 };
-
-
-
-// //     console.log("POST cont.signup"); //har bitta contrullaer reques kelganda bizga korsatib tursin
-// //     res.send("signup sahifadasiz"); 
-// };
-
-memberController.login = (req, res) => {
-    console.log("POST cont.signup"); //har bitta contrullaer reques kelganda bizga korsatib tursin
-    res.send("login sahifadasiz"); 
-};
-
+console.log("Muhammadaziz");
 memberController.logout = (req, res) => {
-    console.log("GET cont.logout"); //har bitta contrullaer reques kelganda bizga korsatib tursin
-    res.send("logout sahifadasiz"); 
-    
+  console.log("GET cont.logout");
+  res.send("logout sahifadasiz");
 };
